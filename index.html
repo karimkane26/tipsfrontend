@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ma Stack Tech — Tips</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --border: #1e1e2e;
+    --accent: #6ee7b7;
+    --accent2: #818cf8;
+    --accent3: #fb923c;
+    --accent4: #f472b6;
+    --accent5: #38bdf8;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --mono: 'Space Mono', monospace;
+    --sans: 'Syne', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    padding: 48px 24px;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 10% 0%, rgba(110,231,183,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 90% 100%, rgba(129,140,248,0.07) 0%, transparent 60%);
+  }
+
+  .header {
+    max-width: 860px;
+    margin: 0 auto 48px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 24px;
+  }
+
+  .header-left h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+  .header-left h1 span { color: var(--accent); }
+  .header-left p {
+    margin-top: 8px;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.75rem;
+  }
+  .badge {
+    background: rgba(110,231,183,0.1);
+    border: 1px solid rgba(110,231,183,0.25);
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    padding: 4px 10px;
+    border-radius: 99px;
+    white-space: nowrap;
+  }
+
+  .grid {
+    max-width: 860px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: var(--card-accent);
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--card-accent);
+    border-radius: 16px 16px 0 0;
+  }
+  .card::after {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: var(--card-accent);
+    opacity: 0.04;
+    pointer-events: none;
+  }
+
+  .card-cat {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--card-accent);
+    margin-bottom: 10px;
+  }
+
+  .card-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title .emoji { font-size: 1.3rem; }
+
+  .card-desc {
+    font-size: 0.82rem;
+    color: #94a3b8;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .tips-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .tips {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .tips li {
+    font-size: 0.78rem;
+    color: var(--text);
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    line-height: 1.5;
+  }
+  .tips li::before {
+    content: '→';
+    color: var(--card-accent);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .footer {
+    max-width: 860px;
+    margin: 48px auto 0;
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .footer p {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-align: center;
+  }
+  .footer span { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>Ma <span>Stack</span> Tech</h1>
+    <p>// fiche de référence · à consulter avant chaque projet</p>
+  </div>
+  <div class="badge">v1.0 · 2026</div>
+</div>
+
+<div class="grid">
+
+  <!-- Next.js -->
+  <div class="card" style="--card-accent: #6ee7b7;">
+    <div class="card-cat">Framework & Rendu</div>
+    <div class="card-title"><span class="emoji">⚡</span> Next.js</div>
+    <div class="card-desc">Le squelette de tout projet. Gère routing, SSR, SSG, API routes et optimisation des assets.</div>
+    <div class="tips-label">Tips à retenir</div>
+    <ul class="tips">
+      <li>Utiliser <code>app/</code> router (App Router) pour les nouveaux projets</li>
+      <li>Privilegier <code>generateStaticParams</code> pour les pages dynamiques statiques</li>
+      <li>Activer <code>next/image</code> pour toutes les images</li>
+      <li>Utiliser les Server Components par défaut, Client seulement si besoin d'interactivité</li>
+    </ul>
+  </div>
+
+  <!-- React -->
+  <div class="card" style="--card-accent: #38bdf8;">
+    <div class="card-cat">Librairie UI</div>
+    <div class="card-title"><span class="emoji">⚛️</span> React</div>
+    <div class="card-desc">Base de toute l'UI. Composants réutilisables, hooks pour la logique, state pour la réactivité.</div>
+    <div class="tips-label">Tips à retenir</div>
+    <ul class="tips">
+      <li>Découper en petits composants (<strong>1 rôle = 1 composant</strong>)</li>
+      <li>Utiliser <code>useState</code> / <code>useEffect</code> avec parcimonie</li>
+      <li>Préférer <code>useCallback</code> et <code>useMemo</code> si perf critique</li>
+      <li>Nommer les composants en PascalCase, les hooks en camelCase</li>
+    </ul>
+  </div>
+
+  <!-- Tailwind CSS -->
+  <div class="card" style="--card-accent: #818cf8;">
+    <div class="card-cat">Styling</div>
+    <div class="card-title"><span class="emoji">🎨</span> Tailwind CSS</div>
+    <div class="card-desc">CSS utilitaire. On stylise directement dans le JSX avec des classes prêtes à l'emploi.</div>
+    <div class="tips-label">Tips à retenir</div>
+    <ul class="tips">
+      <li>Utiliser <code>cn()</code> (clsx + tailwind-merge) pour les classes conditionnelles</li>
+      <li>Définir les couleurs custom dans <code>tailwind.config.ts</code></li>
+      <li>Utiliser les variantes responsives : <code>md:</code>, <code>lg:</code></li>
+      <li>Éviter les styles inline, tout passer par Tailwind</li>
+    </ul>
+  </div>
+
+  <!-- shadcn/ui -->
+  <div class="card" style="--card-accent: #fb923c;">
+    <div class="card-cat">Composants UI</div>
+    <div class="card-title"><span class="emoji">🧩</span> shadcn/ui</div>
+    <div class="card-desc">Composants copiables dans le projet (pas une dépendance). Basés sur Radix + Tailwind, entièrement personnalisables.</div>
+    <div class="tips-label">Tips à retenir</div>
+    <ul class="tips">
+      <li>Installer seulement les composants nécessaires (<code>npx shadcn@latest add button</code>)</li>
+      <li>Modifier directement les fichiers dans <code>components/ui/</code></li>
+      <li>Utiliser la variante <code>asChild</code> pour composer les composants</li>
+      <li>Consulter ui.shadcn.com pour les exemples de composition</li>
+    </ul>
+  </div>
+
+  <!-- Radix UI -->
+  <div class="card" style="--card-accent: #f472b6;">
+    <div class="card-cat">Accessibilité</div>
+    <div class="card-title"><span class="emoji">♿</span> Radix UI</div>
+    <div class="card-desc">Primitives headless (sans style). Gère l'accessibilité, le clavier, le focus trap pour les interactions complexes.</div>
+    <div class="tips-label">Tips à retenir</div>
+    <ul class="tips">
+      <li>Utilisé <strong>indirectement via shadcn/ui</strong> dans la plupart des cas</li>
+      <li>Utiliser directement pour des composants très custom (Slider, Tooltip, etc.)</li>
+      <li>Toujours garder les attributs ARIA générés par Radix</li>
+    </ul>
+  </div>
+
+  <!-- Framer Motion -->
+  <div class="card" style="--card-accent: #a78bfa;">
+    <div class="card-cat">Animations</div>
+    <div class="card-title"><span class="emoji">✨</span> Framer Motion</div>
+    <div class="card-desc">Animations déclaratives pour React. Transitions de page, animations au scroll, micro-interactions fluides.</div>
+    <div class="tips-label">Tips à retenir</div>
+    <ul class="tips">
+      <li>Utiliser <code>&lt;motion.div&gt;</code> + <code>initial</code>, <code>animate</code>, <code>exit</code></li>
+      <li><code>staggerChildren</code> pour animer des listes en cascade</li>
+      <li>Entourer les routes de <code>&lt;AnimatePresence&gt;</code> pour les transitions de page</li>
+      <li>Préférer <code>layout</code> prop pour les animations de layout automatiques</li>
+    </ul>
+  </div>
+
+  <!-- Lucide -->
+  <div class="card" style="--card-accent: #34d399;">
+    <div class="card-cat">Icônes</div>
+    <div class="card-title"><span class="emoji">🔷</span> Lucide</div>
+    <div class="card-desc">Bibliothèque d'icônes SVG cohérentes, légères, tree-shakable (seules les icônes utilisées sont incluses).</div>
+    <div class="tips-label">Tips à retenir</div>
+    <ul class="tips">
+      <li>Importer individuellement : <code>import &#123; Search &#125; from 'lucide-react'</code></li>
+      <li>Passer <code>size</code>, <code>color</code>, <code>strokeWidth</code> en props</li>
+      <li>Utiliser lucide.dev pour rechercher les icônes disponibles</li>
+    </ul>
+  </div>
+
+  <!-- Vercel -->
+  <div class="card" style="--card-accent: #e2e8f0;">
+    <div class="card-cat">Déploiement</div>
+    <div class="card-title"><span class="emoji">▲</span> Vercel</div>
+    <div class="card-desc">Plateforme de déploiement optimisée pour Next.js. Preview automatique par branche, CDN mondial, domaines.</div>
+    <div class="tips-label">Tips à retenir</div>
+    <ul class="tips">
+      <li>Connecter le repo GitHub → déploiement automatique à chaque push</li>
+      <li>Utiliser les <strong>Preview Deployments</strong> pour tester avant de merger</li>
+      <li>Gérer les variables d'env dans le dashboard Vercel (pas dans le code)</li>
+      <li>Activer Vercel Analytics depuis le dashboard projet</li>
+    </ul>
+  </div>
+
+  <!-- Sécurité & Perf -->
+  <div class="card" style="--card-accent: #fbbf24;">
+    <div class="card-cat">Sécurité & Performances</div>
+    <div class="card-title"><span class="emoji">🔒</span> HSTS + Priority Hints</div>
+    <div class="card-desc">HSTS force HTTPS. Priority Hints indique au navigateur quelles ressources charger en priorité.</div>
+    <div class="tips-label">Tips à retenir</div>
+    <ul class="tips">
+      <li>HSTS activé automatiquement sur Vercel (rien à faire)</li>
+      <li>Ajouter <code>fetchpriority="high"</code> sur l'image hero (LCP)</li>
+      <li>Vérifier les headers de sécurité avec securityheaders.com</li>
+    </ul>
+  </div>
+
+  <!-- Open Graph -->
+  <div class="card" style="--card-accent: #2dd4bf;">
+    <div class="card-cat">SEO & Partage</div>
+    <div class="card-title"><span class="emoji">🔗</span> Open Graph</div>
+    <div class="card-desc">Balises méta qui contrôlent l'aperçu du site sur les réseaux sociaux (titre, image, description).</div>
+    <div class="tips-label">Tips à retenir</div>
+    <ul class="tips">
+      <li>Définir dans Next.js via <code>metadata</code> ou <code>generateMetadata()</code></li>
+      <li>Image OG recommandée : <strong>1200×630px</strong></li>
+      <li>Tester avec opengraph.xyz ou les debuggers Twitter/FB</li>
+      <li>Créer une image OG dynamique avec <code>next/og</code> (ImageResponse)</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Consulter cette fiche <span>avant de démarrer</span> chaque nouveau projet · Mise à jour au fil des apprentissages</p>
+</div>
+
+</body>
+</html>
